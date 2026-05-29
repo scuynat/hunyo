@@ -19,7 +19,7 @@ def lock():
         brand=2,                  # Hyundai
         username=os.environ["HYUNDAI_USER"],
         password=os.environ["HYUNDAI_PASS"],
-        pin=""
+        pin=os.environ["HYUNDAI_PIN"]
     )
 
     vm.check_and_refresh_token()
