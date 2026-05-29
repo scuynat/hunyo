@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-SECRET = "12346782343241236328723756"
+SECRET = os.environ["SECRET"]
 
 @app.route("/")
 def root():
