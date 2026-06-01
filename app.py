@@ -24,6 +24,8 @@ def lock():
     )
 
     vm.check_and_refresh_token()
+    return "hagyd abba"
+    
     vm.force_refresh_all_vehicles_states()
     vm.update_all_vehicles_with_cached_state()
 
