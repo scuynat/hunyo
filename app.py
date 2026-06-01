@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from hyundai_kia_connect_api import VehicleManager
 import os
+import inspect
 
 app = Flask(__name__)
 
@@ -24,7 +25,8 @@ def lock():
     )
 
     vm.check_and_refresh_token()
-    return "<br>".join(dir(vm))
+    #return "<br>".join(dir(vm))
+    return str(inspect.signature(vm.lock))
     
     vm.force_refresh_all_vehicles_states()
     vm.update_all_vehicles_with_cached_state()
