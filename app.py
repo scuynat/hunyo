@@ -26,5 +26,18 @@ def lock():
     vm.check_and_refresh_token()
     vm.update_all_vehicles_with_cached_state()
 
-    return str(vm.vehicles)
+       vehicle = next(iter(vm.vehicles.values()))
+    s = vehicle.data["vehicleStatus"]
+
+    return jsonify({
+        "locked": s["doorLock"],
+        "engine": s["engine"],
+        "frontLeft": s["doorOpen"]["frontLeft"],
+        "frontRight": s["doorOpen"]["frontRight"],
+        "backLeft": s["doorOpen"]["backLeft"],
+        "backRight": s["doorOpen"]["backRight"],
+        "trunkOpen": s["trunkOpen"]
+    })
+
+
     
