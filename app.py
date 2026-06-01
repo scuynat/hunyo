@@ -25,9 +25,6 @@ def lock():
     )
 
     vm.check_and_refresh_token()
-    #return "<br>".join(dir(vm))
-    return str(inspect.signature(vm.lock))
-    
     vm.force_refresh_all_vehicles_states()
     vm.update_all_vehicles_with_cached_state()
 
@@ -35,15 +32,22 @@ def lock():
         vehicle = next(iter(vm.vehicles.values()))
         s = vehicle.data["vehicleStatus"]
 
-        return jsonify({
-            "locked": s["doorLock"],
-            "engine": s["engine"],
-            "frontLeft": s["doorOpen"]["frontLeft"],
-            "frontRight": s["doorOpen"]["frontRight"],
-            "backLeft": s["doorOpen"]["backLeft"],
-            "backRight": s["doorOpen"]["backRight"],
-            "trunkOpen": s["trunkOpen"]
-        })
+        if s["doorLock"]:
+            return "Már zárva"
+
+        if (
+                s["doorOpen"]["frontLeft"] == 1
+                or s["doorOpen"]["frontRight"] == 1
+                or s["doorOpen"]["backLeft"] == 1
+                or s["doorOpen"]["backRight"] == 1
+                or s["trunkOpen"]
+                or s["engine"]
+        ):
+            return "Nem sikerült a zárás, mert nyitva valamelyik ajtó, vagy READY-ben van az autó"
+
+        vm.lock(vehicle.id)
+
+        return "Zárás elindítva"
         
     except Exception as e:
         return str(e), 500
