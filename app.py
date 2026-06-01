@@ -26,7 +26,7 @@ def lock():
     vm.check_and_refresh_token()
     vm.update_all_vehicles_with_cached_state()
 
-       vehicle = next(iter(vm.vehicles.values()))
+    vehicle = next(iter(vm.vehicles.values()))
     s = vehicle.data["vehicleStatus"]
 
     return jsonify({
