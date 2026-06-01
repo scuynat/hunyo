@@ -24,7 +24,8 @@ def lock():
     )
 
     vm.check_and_refresh_token()
-    return "<br>".join(dir(vm))
+    result = vm.force_refresh_all_vehicles_states()
+    return str(result)
     
 
 
