@@ -1,4 +1,5 @@
 from flask import Flask, request
+from hyundai_kia_connect_api import VehicleManager
 import os
 
 app = Flask(__name__)
