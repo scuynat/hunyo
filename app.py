@@ -29,20 +29,7 @@ def lock():
     #vm.force_refresh_all_vehicles_states()
     #vm.update_all_vehicles_with_cached_state()
 
-    try:
-        requests.post(
-            "https://api.pushover.net/1/messages.json",
-            data={
-                "token": os.environ["PUSHOVER_API_TOKEN"],
-                "user": os.environ["PUSHOVER_USER_KEY"],
-                "message": "heló"
-            }
-        )
-
-        return "hihi"
-
-
-        
+    try:       
         vehicle = next(iter(vm.vehicles.values()))
         s = vehicle.data["vehicleStatus"]
 
@@ -57,7 +44,16 @@ def lock():
                 or s["trunkOpen"]
                 or s["engine"]
         ):
-            return "Nem sikerült a zárás, mert nyitva valamelyik ajtó, vagy READY-ben van az autó"
+            requests.post(
+                "https://api.pushover.net/1/messages.json",
+                data={
+                    "token": os.environ["PUSHOVER_API_TOKEN"],
+                    "user": os.environ["PUSHOVER_USER_KEY"],
+                    "message": "Nem sikerült a zárás, mert nyitva valamelyik ajtó, vagy READY-ben van az autó"
+                }
+            )
+
+            return "Nem sikerült a zárás, mert nyitva valamelyik ajtó, vagy READY-ben van az autó (push üzenet elküldve)"
 
         vm.lock(vehicle.id)
 
