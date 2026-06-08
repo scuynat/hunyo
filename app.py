@@ -53,7 +53,7 @@ def lock():
                 }
             )
 
-            return "Nem sikerült a zárás, mert nyitva valamelyik ajtó, vagy READY-ben van az autó (push üzenet elküldve)"
+            return "Nem sikerült a zárás, push elküldve"
 
         vm.lock(vehicle.id)
 
