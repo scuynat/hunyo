@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from hyundai_kia_connect_api import VehicleManager
 import os
 import inspect
+import requests
 
 app = Flask(__name__)
 
@@ -24,11 +25,24 @@ def lock():
         pin=os.environ["HYUNDAI_PIN"]
     )
 
-    vm.check_and_refresh_token()
-    vm.force_refresh_all_vehicles_states()
-    vm.update_all_vehicles_with_cached_state()
+    #vm.check_and_refresh_token()
+    #vm.force_refresh_all_vehicles_states()
+    #vm.update_all_vehicles_with_cached_state()
 
     try:
+        requests.post(
+            "https://api.pushover.net/1/messages.json",
+            data={
+                "token": os.environ["PUSHOVER_API_TOKEN"],
+                "user": os.environ["PUSHOVER_USER_KEY"],
+                "message": "heló"
+            }
+        )
+
+        return "hihi"
+
+
+        
         vehicle = next(iter(vm.vehicles.values()))
         s = vehicle.data["vehicleStatus"]
 
