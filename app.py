@@ -37,9 +37,9 @@ def lock():
             pin=os.environ["HYUNDAI_PIN"]
         )
     
-        vm.check_and_refresh_token()
-        vm.force_refresh_all_vehicles_states()
-        vm.update_all_vehicles_with_cached_state()          
+        #vm.check_and_refresh_token()
+        #vm.force_refresh_all_vehicles_states()
+        #vm.update_all_vehicles_with_cached_state()          
         #vehicle = next(iter(vm.vehicles.values()))
         s = vehicle.data["vehicleStatus"]
 
@@ -78,7 +78,7 @@ def lock():
                 "message": "Hiba: " + str(e)
             }
         )
-        return str(e), 500
+        return "Hiba: " + str(e) + ", push elküldve", 500
 
 
     
