@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from hyundai_kia_connect_api import VehicleManager
 import os
-#import inspect
 import requests
 
 app = Flask(__name__)
@@ -17,16 +16,6 @@ def lock():
 
     if request.args.get("secret") != SECRET:
         return "Forbidden", 403
-
-    # requests.post(
-    #     "https://api.pushover.net/1/messages.json",
-    #     data={
-    #         "token": os.environ["PUSHOVER_API_TOKEN"],
-    #         "user": os.environ["PUSHOVER_USER_KEY"],
-    #         "message": "TESTING"
-    #     }
-    # )
-    # return "Test OK"
     
     try: 
         vm = VehicleManager(
@@ -37,10 +26,10 @@ def lock():
             pin=os.environ["HYUNDAI_PIN"]
         )
     
-        #vm.check_and_refresh_token()
-        #vm.force_refresh_all_vehicles_states()
-        #vm.update_all_vehicles_with_cached_state()          
-        #vehicle = next(iter(vm.vehicles.values()))
+        vm.check_and_refresh_token()
+        vm.force_refresh_all_vehicles_states()
+        vm.update_all_vehicles_with_cached_state()          
+        vehicle = next(iter(vm.vehicles.values()))
         s = vehicle.data["vehicleStatus"]
 
         if s["doorLock"]:
