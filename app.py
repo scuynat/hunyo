@@ -40,7 +40,7 @@ def lock():
         vm.check_and_refresh_token()
         vm.force_refresh_all_vehicles_states()
         vm.update_all_vehicles_with_cached_state()          
-        vehicle = next(iter(vm.vehicles.values()))
+        #vehicle = next(iter(vm.vehicles.values()))
         s = vehicle.data["vehicleStatus"]
 
         if s["doorLock"]:
@@ -70,6 +70,14 @@ def lock():
         return "Zárás elindítva"
         
     except Exception as e:
+        requests.post(
+            "https://api.pushover.net/1/messages.json",
+            data={
+                "token": os.environ["PUSHOVER_API_TOKEN"],
+                "user": os.environ["PUSHOVER_USER_KEY"],
+                "message": "Hiba: " + str(e)
+            }
+        )
         return str(e), 500
 
 
