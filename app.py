@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from hyundai_kia_connect_api import VehicleManager
 import os
-import inspect
+#import inspect
 import requests
 
 app = Flask(__name__)
@@ -18,16 +18,15 @@ def lock():
     if request.args.get("secret") != SECRET:
         return "Forbidden", 403
 
-    requests.post(
-        "https://api.pushover.net/1/messages.json",
-        data={
-            "token": os.environ["PUSHOVER_API_TOKEN"],
-            "user": os.environ["PUSHOVER_USER_KEY"],
-            "message": "TESTING"
-        }
-    )
-    return "Test OK"
-
+    # requests.post(
+    #     "https://api.pushover.net/1/messages.json",
+    #     data={
+    #         "token": os.environ["PUSHOVER_API_TOKEN"],
+    #         "user": os.environ["PUSHOVER_USER_KEY"],
+    #         "message": "TESTING"
+    #     }
+    # )
+    # return "Test OK"
     
     try: 
         vm = VehicleManager(
