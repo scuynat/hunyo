@@ -7,10 +7,18 @@ app = Flask(__name__)
 
 SECRET = os.environ["SECRET"]
 
+counter = 0
+
 @app.route("/")
 def root():
     return "OK"
-    
+
+@app.route("/test")
+def test():
+    global counter
+    counter += 1
+    return str(counter)
+
 @app.route("/lock")
 def lock():
 
