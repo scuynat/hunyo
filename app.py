@@ -75,6 +75,8 @@ def lock():
                 already_locked_count = 0
                 already_locked_window_start = now
 
+                return "Már zárva 3x, push elküldve"
+
             return "Már zárva"
 
         if (
@@ -111,6 +113,8 @@ def lock():
             )
 
             last_failed_lock = 0
+            
+            return "Zárás elindítva nyitott ajtó után, push elküldve"
 
         return "Zárás elindítva"
         
