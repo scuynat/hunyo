@@ -3,6 +3,7 @@ from hyundai_kia_connect_api import VehicleManager
 import os
 import requests
 import time
+import datetime
 
 app = Flask(__name__)
 
@@ -29,7 +30,7 @@ def disable():
         return "Forbidden", 403
     
     disabled = True
-    return "Disabled OK at " + str(time.time())
+    return "Disabled OK at " + str(datetime.datetime.now())
 
 @app.route("/enable")
 def enable():
@@ -39,7 +40,7 @@ def enable():
         return "Forbidden", 403
     
     disabled = False
-    return "Enabled OK at " + str(time.time())
+    return "Enabled OK at " + str(datetime.datetime.now())
 
 @app.route("/test")
 def test():
