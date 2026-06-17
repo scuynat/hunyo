@@ -15,9 +15,23 @@ last_failed_lock = 0
 already_locked_count = 0
 already_locked_window_start = 0
 
+disabled = False
+
 @app.route("/")
 def root():
     return "OK"
+
+@app.route("/disable")
+def disable():
+    global disabled
+    disabled = True
+    return "Disabled OK"
+
+@app.route("/enable")
+def enable():
+    global disabled
+    disabled = False
+    return "Enabled OK"
 
 @app.route("/test")
 def test():
@@ -30,8 +44,12 @@ def lock():
     global last_failed_lock
     global already_locked_count
     global already_locked_window_start
+    global disabled
     if request.args.get("secret") != SECRET:
         return "Forbidden", 403
+
+    if disabled
+        return "Service disabled", 403
     
     try: 
         vm = VehicleManager(
