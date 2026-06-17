@@ -48,7 +48,7 @@ def lock():
     if request.args.get("secret") != SECRET:
         return "Forbidden", 403
 
-    if disabled
+    if disabled:
         return "Service disabled", 403
     
     try: 
