@@ -24,14 +24,22 @@ def root():
 @app.route("/disable")
 def disable():
     global disabled
+    
+    if request.args.get("secret") != SECRET:
+        return "Forbidden", 403
+    
     disabled = True
-    return "Disabled OK"
+    return "Disabled OK at " + time.time()
 
 @app.route("/enable")
 def enable():
     global disabled
+    
+    if request.args.get("secret") != SECRET:
+        return "Forbidden", 403
+    
     disabled = False
-    return "Enabled OK"
+    return "Enabled OK at " + time.time()
 
 @app.route("/test")
 def test():
