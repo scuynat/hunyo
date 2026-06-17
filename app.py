@@ -29,7 +29,7 @@ def disable():
         return "Forbidden", 403
     
     disabled = True
-    return "Disabled OK at " + time.time()
+    return "Disabled OK at " + str(time.time())
 
 @app.route("/enable")
 def enable():
@@ -39,7 +39,7 @@ def enable():
         return "Forbidden", 403
     
     disabled = False
-    return "Enabled OK at " + time.time()
+    return "Enabled OK at " + str(time.time())
 
 @app.route("/test")
 def test():
